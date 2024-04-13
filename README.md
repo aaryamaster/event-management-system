@@ -43,28 +43,28 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 ## Screenshots
 
 ### Home Page
-![Home Page](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/93335399-b728-46b7-ae89-3fab8575ead0))
+![Home Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/93335399-b728-46b7-ae89-3fab8575ead0)
 
 
 ### Browse Event Page
-![Browse Event Page](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c1c5ecc5-f986-4c90-af6e-7203fbd3f683)
-)
+![Browse Event Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c1c5ecc5-f986-4c90-af6e-7203fbd3f683)
+
 
 ### Private Event Creation Page
-![Private Event Creation Page](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/207670bb-04c2-4286-9d54-273847bd312e)
-)
+![Private Event Creation Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/207670bb-04c2-4286-9d54-273847bd312e)
+
 
 ### User Dashboard
-![User Dashboard](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/067f3b35-ba9a-4f29-9a1b-88231e544226)
-)
+![User Dashboard]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/067f3b35-ba9a-4f29-9a1b-88231e544226)
+
 
 ### User Organized Events
-![User Organized Events](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c9b5e0c7-fca0-411f-8be7-de990ead7d85)
-)
+![User Organized Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c9b5e0c7-fca0-411f-8be7-de990ead7d85)
+
 
 ### User Purchased Events
-![User Purchased Events](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/a20536a2-dcef-4511-8c50-fe35d7a924c4)
-)
+![User Purchased Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/a20536a2-dcef-4511-8c50-fe35d7a924c4)
+
 
 ### Admin Dashboard
 ![Admin Dashboard](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/cf4583ee-35f2-44de-8f63-c310566cb59f)
