@@ -52,7 +52,7 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 
 
 ### Browse Event Page
-![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/26baddd9-5c47-417a-9c97-cc9022305b9c)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/0af734f5-850a-4ae9-8512-f7d30e69fe18)
 
 
 ### Private Event Creation Page
@@ -78,5 +78,5 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 ![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/2d596a62-e123-40bd-bccd-b0de2bd75cf6)
 
 ### Admin Events
-![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/47c3c872-ecf6-4799-a5c2-a084f98d845a)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/1fcb01b1-3073-4738-9a33-fe1809a75641)
 
