@@ -43,38 +43,37 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 ## Screenshots
 
 ### Home Page
-![Home Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/93335399-b728-46b7-ae89-3fab8575ead0)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/93335399-b728-46b7-ae89-3fab8575ead0)
 
 
 ### Browse Event Page
-![Browse Event Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c1c5ecc5-f986-4c90-af6e-7203fbd3f683)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c1c5ecc5-f986-4c90-af6e-7203fbd3f683)
 
 
 ### Private Event Creation Page
-![Private Event Creation Page]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/207670bb-04c2-4286-9d54-273847bd312e)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/207670bb-04c2-4286-9d54-273847bd312e)
 
 
 ### User Dashboard
-![User Dashboard]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/067f3b35-ba9a-4f29-9a1b-88231e544226)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/067f3b35-ba9a-4f29-9a1b-88231e544226)
 
 
 ### User Organized Events
-![User Organized Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c9b5e0c7-fca0-411f-8be7-de990ead7d85)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/c9b5e0c7-fca0-411f-8be7-de990ead7d85)
 
 
 ### User Purchased Events
-![User Purchased Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/a20536a2-dcef-4511-8c50-fe35d7a924c4)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/a20536a2-dcef-4511-8c50-fe35d7a924c4)
 
 
 ### Admin Dashboard
-![Admin Dashboard](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/cf4583ee-35f2-44de-8f63-c310566cb59f)
-)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/cf4583ee-35f2-44de-8f63-c310566cb59f)
 
 ### User Events
-![User Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/2d596a62-e123-40bd-bccd-b0de2bd75cf6)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/2d596a62-e123-40bd-bccd-b0de2bd75cf6)
 
 ### Admin Events
-![Admin Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/47c3c872-ecf6-4799-a5c2-a084f98d845a)
+![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/47c3c872-ecf6-4799-a5c2-a084f98d845a)
 
 ## Database Schema and Dataflow Diagram
 
