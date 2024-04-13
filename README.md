@@ -71,16 +71,12 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 )
 
 ### User Events
-![User Events](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/2d596a62-e123-40bd-bccd-b0de2bd75cf6)
-)
+![User Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/2d596a62-e123-40bd-bccd-b0de2bd75cf6)
 
 ### Admin Events
-![Admin Events](![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/47c3c872-ecf6-4799-a5c2-a084f98d845a)
-)
+![Admin Events]![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/47c3c872-ecf6-4799-a5c2-a084f98d845a)
 
 ## Database Schema and Dataflow Diagram
 
-- **Database Schema**: [![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/49f3533d-e6a1-47b8-a703-4fb1c29b73f9)
-]
-- **Dataflow Diagram**: [![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/129a376e-4570-48ac-b987-d26c81428a21)
-]
+- **Database Schema**:![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/49f3533d-e6a1-47b8-a703-4fb1c29b73f9)
+- **Dataflow Diagram**:![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/129a376e-4570-48ac-b987-d26c81428a21)
