@@ -1,0 +1,82 @@
+﻿@model EventManagement.ViewModels.ConfirmBookingViewModel
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "Confirm Booking";
+    var settings = new JsonSerializerSettings
+    {
+       ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    };
+
+    var privateEvent = JsonConvert.SerializeObject(Model.PrivateEvent, settings);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">Booking Receipt</h2>
+        <hr />
+
+        <h3>Event Details</h3>
+        <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+            <tr>
+                <th>Organizer</th>
+                <td>@User.Identity.Name</td>
+            </tr>
+            <tr>
+                <th>Event Name</th>
+                <td>@Model.PrivateEvent.EventName</td>
+            </tr>
+            <tr>
+                <th>Number of Guests</th>
+                <td>@Model.PrivateEvent.NumberOfGuests</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>@Model.PrivateEvent.Date.ToString("MMMM dd, yyyy")</td>
+            </tr>
+            <tr>
+                <th>Hall Name</th>
+                <td>@Model.PrivateEvent.Hall.HallName</td>
+            </tr>
+            <tr>
+                <th>Venue</th>
+                <td>@Model.PrivateEvent.Hall.Venue</td>
+            </tr>
+            <tr>
+                <th>Contact Information</th>
+                <td>@Model.PrivateEvent.ContactInformation</td>
+            </tr>
+        </table>
+
+        <h3>Payment Details</h3>
+        <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+            <tr>
+                <th>Hall Price</th>
+                <td>@Model.PrivateEvent.Hall.HallPrice</td>
+            </tr>
+            <tr>
+                <th>Duration Charges Rs. 5000 per hour</th>
+                <td>@Model.DurationCharge</td>
+            </tr>
+            <tr>
+                <th>Food Charges</th>
+                <td>@Model.FoodCharge</td>
+            </tr>
+            <tr>
+                <th>Taxes 18% GST and 10% Others</th>
+                <td>@Model.TotalTax</td>
+            </tr>
+            <tr>
+                <th>SubTotal</th>
+                <td>Rs. @Model.TotalPrice</td>
+            </tr>
+        </table>
+        @Html.ActionLink("Confirm Booking", "ConfirmBooking", "PrivateEvents", new { viewModelJson = privateEvent }, new { @class = "btn btn-success d-block offset-10" })
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model Hall
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="card text-dark">
+    <div class="card-header">
+        <h1 class="text-center text-danger">Remove Hall</h1>
+    </div>
+    <div class="card-body">
+        <h3>Are you sure you want to remove this hall?</h3>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.HallName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.HallName)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Venue)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Venue)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.HallPrice)</dt>
+                <dd class="col-sm-9">Rs. @Html.DisplayFor(model => model.HallPrice)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Location)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Location)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.GuestLimit)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.GuestLimit)</dd>
+            </dl>
+            <form asp-action="Delete">
+                <div class="justify-content-between d-flex">
+                    <input type="hidden" asp-for="HallId" />
+                    <div class="d-inline">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    </div>
+                    <div class="d-inline">
+                        <input type="submit" value="Remove Hall" class="btn btn-danger" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

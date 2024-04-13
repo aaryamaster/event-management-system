@@ -1,0 +1,120 @@
+﻿@model PrivateEvent
+@{
+    ViewData["Title"] = "Edit";
+    var dateMin = @DateTime.Now.AddDays(7).ToString("yyyy-MM-ddTHH:mm");
+    var dateMax = @DateTime.Now.AddDays(7).AddMonths(6).ToString("yyyy-MM-ddTHH:mm");
+}
+
+<h1 class="text-center mb-4">Edit Event</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Edit" asp-controller="PrivateEvents" class="bg-light p-4 rounded text-dark">
+                <div class="form-group">
+                    <label asp-for="EventName" class="control-label h5">
+                        <i class="bi bi-calendar-event"></i> Event Name
+                    </label>
+                    <input asp-for="EventName" class="form-control" placeholder="Enter event name" />
+                    <span asp-validation-for="EventName" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="EventType" value=0 />
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label h5">
+                        <i class="bi bi-file-text"></i> Event Description
+                    </label>
+                    <input asp-for="Description" class="form-control" placeholder="Enter event description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="EventId" />
+
+                <div class="form-group">
+                    <label asp-for="ContactInformation" class="control-label h5">
+                        <i class="bi bi-person"></i> Contact Information
+                    </label>
+                    <input asp-for="ContactInformation" class="form-control" placeholder="example: David - 1234567890" />
+                    <span asp-validation-for="ContactInformation" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label h5">
+                        <i class="bi bi-calendar"></i> Date
+                    </label>
+                    <input asp-for="Date" class="form-control" min="@dateMin" max="@dateMax" placeholder="Select date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label h5">
+                        <i class="bi bi-clock"></i> Duration
+                    </label>
+                    <select asp-for="Duration" class="form-control" placeholder="Select event duration">
+                        <option value="" disabled selected>Select the duration of event</option>
+                        <option value="2">2 hours</option>
+                        <option value="4">4 hours</option>
+                        <option value="8">8 hours</option>
+                        <option value="12">12 hours</option>
+                        <option value="16">16 hours</option>
+                    </select>
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FoodType" class="control-label h5">
+                        <i class="bi bi-cookie"></i> Food Type
+                    </label>
+                    <select asp-for="FoodType" asp-items="Html.GetEnumSelectList<FoodType>()" class="form-control" placeholder="Select Food Type">
+                        <option value="" disabled selected>Select Food Type</option>
+                    </select>
+                    <span asp-validation-for="FoodType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HallId" class="control-label h5">
+                        <i class="bi bi-house-door"></i> Choose Hall
+                    </label>
+                    <select id="hallNameDropdown" class="form-control" asp-for="HallId" placeholder="Select Hall">
+                        <option value="" disabled selected>Select Hall</option>
+                        @foreach (var hall in ViewBag.Halls)
+                        {
+                            <option value="@hall.HallId">@hall.HallName - @hall.Location, @hall.Venue</option>
+                        }
+                    </select>
+                    <span asp-validation-for="HallId" class="text-danger"></span>
+                </div>
+               
+                <input id="GuestLimit" type="hidden" asp-for="Hall.GuestLimit" />
+
+                <div class="form-group">
+                    <label asp-for="NumberOfGuests" class="control-label h5">
+                        <i class="bi bi-person"></i> Number of Guests
+                    </label>
+                    <input asp-for="NumberOfGuests" class="form-control" placeholder="Enter number of guests" />
+                    <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4 d-flex justify-content-between">
+                    <a onclick="goBack()" class="btn btn-secondary">My Event List</a>
+                    <button type="submit" class="btn btn-success">Confirm Changes</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="controller-marker" data-controller="PrivateEvents"></div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- Include jQuery (you can include it from a CDN or install it locally) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+}

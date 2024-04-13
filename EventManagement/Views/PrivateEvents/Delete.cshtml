@@ -1,0 +1,59 @@
+﻿@model PrivateEvent
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="card text-dark">
+    <div class="card-header">
+        <h1 class="text-center text-danger">Cancel Booking</h1>
+    </div>
+    <div class="card-body">
+        <h3>Are you sure you want to cancel this event?</h3>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EventName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EventName)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Date)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Date)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NumberOfGuests)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.NumberOfGuests)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FoodType)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FoodType)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Duration)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Duration)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ContactInformation)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.ContactInformation)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Hall.HallName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Hall.HallName)</dd>
+            </dl>
+            <form asp-action="Delete">
+                <div class="justify-content-between d-flex">
+                    <input type="hidden" asp-for="EventId" />
+                    <div class="d-inline">
+                        <a class="btn btn-secondary" onclick="goBack()">Back to Event List</a>
+                    </div>
+                    <div class="d-inline">
+                        <input type="submit" value="Cancel Event" class="btn btn-danger" />
+                    </div>
+                </div>   
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

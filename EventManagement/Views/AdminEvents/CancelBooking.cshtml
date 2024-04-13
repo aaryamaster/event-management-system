@@ -1,0 +1,58 @@
+﻿@model EventManagement.ViewModels.CancelBookingByAdminViewModel
+
+@{
+    ViewData["Title"] = "Cancel Booking";
+}
+<div class="card text-dark">
+    <div class="card-header">
+        <h1 class="text-center text-danger">Cancel Booking</h1>
+    </div>
+    <div class="card-body">
+        <h3>Are you sure you want to cancel this event?</h3>
+            <div>
+                <hr />
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            Username
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Username
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.AdminEvent.EventName)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.AdminEvent.EventName)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Ticket.Price)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Ticket.Price)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.AdminEvent.Hall)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.AdminEvent.Hall.HallName)
+                        </dd>
+                    </dl>
+        <form asp-action="DeleteConfirmed">
+            @Html.AntiForgeryToken()
+            <div class="justify-content-between d-flex">
+                <div class="d-inline">
+                    <a class="btn btn-secondary" onclick="goBack()">Back to Event List</a>
+                </div>
+                <div class="d-inline">
+                    @Html.ActionLink("Cancel Booking", "CancelConfirmed", "AdminEvents", new { EventId = Model.AdminEvent.EventId, TicketId = Model.Ticket.TicketId }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

@@ -1,0 +1,52 @@
+﻿@model EventManagement.ViewModels.AdminEventUserViewModel
+@{
+    ViewData["Title"] = "Event Users";
+}
+
+<div class="container">
+    <h4 class="text-center">Event Users</h4>
+    <hr />
+
+    <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+        <tbody>
+            <tr>
+                <th class="col-sm-2">Event Name</th>
+                <td class="col-sm-10">@Model.EventName</td>
+            </tr>
+            <tr>
+                <th class="col-sm-2">Hall</th>
+                <td class="col-sm-10">@Model.HallName</td>
+            </tr>
+            <tr>
+                <th class="col-sm-2">Event Price</th>
+                <td class="col-sm-10">Rs. @Model.EventPrice</td>
+            </tr>
+            <tr>
+                <th class="col-sm-2">Users</th>
+            @if (Model.UserTickets.Any())
+            {
+                    <td class="col-sm-10">
+                        @foreach (var ticket in Model.UserTickets)
+                        {
+                            <div class="row justify-content-between">
+                                <div class="col-9">
+                                    <strong>Username:</strong> @ticket.UserName<br />
+                                    <strong>Number Of Tickets:</strong> @ticket.NumberOfTickets<br />
+                                    <strong>Full Name:</strong> @ticket.FullName
+                                </div>
+                                @if (!Model.IsEventFinished)
+                                {
+                                    <div class="col-3 mt-1">
+                                        <a href="@Url.Action("CancelBooking", "AdminEvents", new { EventId = Model.EventId, TicketId = ticket.TicketId })" class="btn btn-danger">Cancel Booking</a>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                        }
+                    </td>
+            }
+            </tr>
+        </tbody>
+    </table>
+    <a asp-action="Index" class="btn btn-primary offset-11">Back to List</a>
+</div>

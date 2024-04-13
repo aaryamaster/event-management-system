@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EventManagement.ViewModels.MyPurchasedEventViewModel>
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<h1 class="text-center mb-4">My Purchased Events</h1>
+@if (Model.Count() == 0)
+{
+    <h3 class="text-center text-white">No Events Currently</h3>
+}
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card rounded border-2 border-secondary shadow">
+                <div class="card-body text-dark" style="background-color: beige">
+                    <div class="row">
+                        @if (item.IsEventFinished)
+                        {
+                            <h5 class="card-title text-warning text-center mb-3">@item.EventName (Event Finished)</h5>
+                        }
+                        else
+                        {
+                            <h5 class="card-title text-center mb-3">
+                                @item.EventName
+                            </h5>
+                        }
+                        <hr />
+                        <div class="col-md-6">
+                            <p class="card-text">
+                                <strong>Date:</strong> @item.Date.ToString("dddd, MMMM d, yyyy")<br />
+                                <strong>Timings:</strong> @item.Date.ToString("hh:mm tt") to @(item.Date.AddHours(int.Parse(item.Duration)).ToString("hh:mm tt"))<br />
+                                <strong>Tickets:</strong> @item.NumberOfTickets<br />
+                                <strong>Total Price:</strong>Rs. @item.TotalPrice<br />
+                                <strong>Contact Information:</strong> @item.ContactInformation
+                            </p>
+                        </div>
+                        <div class="col-md-6 border-left pl-4">
+                            <p class="card-text">
+                                <strong class="text-left h6">Venue Information</strong><br />
+                                <strong>Hall Name:</strong> @item.HallName<br />
+                                <strong>Venue:</strong> @item.Venue<br />
+                                <strong>Location:</strong> @item.Location
+                            </p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="text-center mt-3">
+                        <div class="btn-group d-flex justify-content-between">
+                            @if (!item.IsEventFinished)
+                            {
+                                @Html.ActionLink("Cancel Booking", "Delete", "NewHome", new { EventId = item.EventId, TicketId = item.TicketId }, new { @class = "btn btn-danger" })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

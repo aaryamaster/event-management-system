@@ -1,0 +1,34 @@
+﻿/* Add the following styles to receipt.css */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: lightblue; /* Background color for the whole page */
+}
+
+.container {
+    text-align: center;
+    width: 80%; /* Adjust the width as needed */
+    padding: 20px; /* Add padding for better spacing */
+    background-color: white; /* Background color for the center portion */
+    border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+    margin-top: 20px; /* Add margin to the top for better spacing */
+}
+
+.navbar {
+    background-color: #f8f9fa; /* Background color for the navbar */
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.table {
+    margin-top: 20px; /* Add margin to the top of the tables for better spacing */
+}
+
+.btn-primary {
+    margin-top: 20px; /* Add margin to the top of the button for better spacing */
+}

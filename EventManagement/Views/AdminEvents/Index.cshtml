@@ -1,0 +1,116 @@
+﻿@model IEnumerable<EventManagement.ViewModels.AdminOrganizedEventViewModel>
+
+@{
+    ViewData["Title"] = "Event List";
+}
+
+<h1 class="text-center">Event List</h1>
+
+
+<div class="container">
+    <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HallName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactInformation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfGuests)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TicketsLeft)
+                </th>
+                <th class="text-center">Management Section</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.IsEventFinished)
+                        {
+                            <p class="text-warning">Event Finished</p>
+                        }
+                        @Html.DisplayFor(modelItem => item.EventName)
+                        @if (item.TicketsLeft == 0.0)
+                        {
+                            <p class="text-warning">Tickets Sold Out</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HallName)
+                    </td>
+                    <td>
+                        <img src="~/@item.ImagePath" alt="Event Image" width="100" height="100" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration) hours
+                    </td>
+                    <td>
+                        Rs. @Html.DisplayFor(modelItem => item.EventPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactInformation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfGuests)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketsLeft)
+                    </td>
+                    @if (item.IsEventFinished)
+                    {
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary disabled">Edit</a>
+                                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.EventId">Users</a>
+                                <a class="btn btn-danger disabled">Delete</a>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.EventId">Edit</a>
+                                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.EventId">Users</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a asp-action="Create" class="btn btn-primary offset-10 d-block">Create New Event</a>
+    </p>
+</div>

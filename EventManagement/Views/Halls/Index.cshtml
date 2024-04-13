@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Hall>
+
+@{
+    ViewData["Title"] = "Hall Index";
+}
+
+<h1 class="text-center">Halls</h1>
+
+@* <p>
+    <a asp-action="Create" class="btn btn-primary">Create New Hall</a>
+</p> *@
+
+<div class="container">
+    <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HallName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Venue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HallPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuestLimit)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HallName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Venue)
+                    </td>
+                    <td>
+                        Rs. @Html.DisplayFor(modelItem => item.HallPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuestLimit)
+                    </td>
+                    <td>
+                        <div class="btn-group d-flex" role="group">
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.HallId">Edit</a>
+@*                             <a class="btn btn-info" asp-action="Details" asp-route-id="@item.HallId">Details</a>
+ *@                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.HallId">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

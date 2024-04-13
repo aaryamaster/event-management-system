@@ -1,0 +1,76 @@
+﻿@model EventManagement.ViewModels.BookEventViewModel
+@{
+    ViewData["Title"] = "Book Event";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img src="~/@Model.AdminEvent.ImagePath" class="img-fluid rounded-start card-img" alt="Event Image" style="height: 466px;">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body text-dark">
+                        <h3 class="card-title">@Model.AdminEvent.EventName</h3>
+                        <p class="card-text"><strong>Description:</strong> @Model.AdminEvent.Description</p>
+                        <p class="card-text"><strong>Venue:</strong> @Model.AdminEvent.Hall.Venue</p>
+                        <p class="card-text">
+                            <strong>Date & Time:</strong> @Model.AdminEvent.Date.ToString("dddd, MMMM d, yyyy"), @Model.AdminEvent.Date.ToShortTimeString()
+                        </p>
+                        <p class="card-text"><strong>Ticket Price:</strong> Rs. @Model.AdminEvent.EventPrice</p>
+                        <p class="card-text">
+                            <strong>Additional Information:</strong> Limited seats available. Book your tickets
+                            now for an unforgettable experience!
+                        </p>
+                        <form asp-action="ConfirmBooking" method="post" asp-controller="NewHome">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                                <input type="hidden" asp-for="AdminEvent.EventId" value="@Model.AdminEvent.EventId" />
+                                <label asp-for="NumberOfTickets" class="control-label">Number of Tickets</label>
+                                <input asp-for="NumberOfTickets" class="form-control" placeholder="Enter the number of tickets" min="1" max="50" type="number"/>
+                                <span asp-validation-for="NumberOfTickets" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label d-inline">Total Price</label>
+                                <input readonly type="number" asp-for="Price" value="@Model.AdminEvent.EventPrice" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input id="submit" type="submit" value="Confirm Booking" class="btn btn-success mt-2 d-flex" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#submit').prop("disabled", true);
+        $('#NumberOfTickets').on("input", function () {
+            $('#submit').prop("disabled", true);
+            var numberOfTickets = $(this).val();
+            if (numberOfTickets > 50) {
+                alert('You can only book 50 tickets max');
+                $('#NumberOfTickets').val('');
+                $('#Price').val(@Model.AdminEvent.EventPrice);
+            }
+            else if (@Model.TicketsLeft >= numberOfTickets) {
+                $('#Price').val(@Model.AdminEvent.EventPrice * numberOfTickets);
+                $('#submit').prop("disabled", false);
+            }
+            else {
+                alert('Only @Model.TicketsLeft tickets left');
+                $('#NumberOfTickets').val('');
+                $('#Price').val(@Model.AdminEvent.EventPrice);
+            }
+        });
+    </script>
+}

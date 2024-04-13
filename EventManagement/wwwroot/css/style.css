@@ -1,0 +1,37 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background: url(Event.jpg) no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+.action-buttons a {
+    justify-content: center;
+    padding: 15px 30px;
+    background-color: #2ecc71;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin:0px 10px;
+}
+
+    .action-buttons a:hover {
+        background-color: #27ae60;
+    }
+
+
+.card-deck a {
+    text-decoration: none;
+}
+
+.custom-navbar {
+    background-color: rgba(0,0,0,0.7) !important;
+    font-size:16px;
+    font-weight:bold;
+}
+#logout {
+    font-size:16px; font-weight:bold;
+}

@@ -1,0 +1,46 @@
+﻿@using EventManagement.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav ms-auto">
+    @if (SignInManager.IsSignedIn(User))
+    {
+            var username = User.Identity.Name;
+            if(username.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                 <li class="nav-item">
+                <a class="bi bi-person-circle" href="~/Identity/Account/Manage" style="color:white; font-size:30px;"></a>
+                </li>
+                <li class="nav-item">
+                    <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="NewHome" asp-action="Admin">Admin Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "NewHome")">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0">Logout</button>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="bi bi-person-circle" href="~/Identity/Account/Manage" style="color:white; font-size:30px;"></a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link text-light" asp-controller="NewHome" asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item mt-1">
+                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "NewHome")">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0">Logout</button>
+                    </form>
+                </li>
+            }
+    }
+</ul>

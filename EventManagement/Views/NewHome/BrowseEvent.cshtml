@@ -1,0 +1,58 @@
+﻿@model EventManagement.ViewModels.BrowseEventsViewModel
+@{
+    ViewData["Title"] = "Browse Events";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post">
+        <h1 class="text-center">Upcoming Events</h1>
+        <div class="container">
+            <div class="row">
+                @{
+                    foreach (var e in Model.AdminEvents)
+                    {
+                        int eventId = e.EventId;
+                        double ticketsLeft = Model.TicketsLeft[eventId];
+                        if (!e.IsEventFinished)
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card mb-4">
+                                    <img src="~/@e.ImagePath" class="card-img-top" alt="Event Image">
+                                    <div class="card-body text-dark">
+                                        <h5 class="card-title">@e.EventName</h5>
+                                        <p class="card-text mb-0">@e.Description</p>
+                                        <p class="card-text mb-1">Ticket Price: Rs. @e.EventPrice</p>
+                                        @if (Model.Tickets.Any(t => t.UserId == Model.UserId && t.EventId == eventId))
+                                        {
+                                        <strong class="text-danger d-block mb-0">Tickets already bought</strong>
+                                        <a asp-action="MyEvents" asp-controller="NewHome" class="btn btn-primary d-block mb-0" style="display: block; margin: 0 auto;">My Events</a>
+                                        }
+                                        else if (ticketsLeft == 0.0)
+                                        {
+                                        <strong class="text-danger d-block mb-3">Tickets Sold</strong>
+                                        }
+                                        else
+                                        {
+                                        <button asp-route-id="@e.EventId" asp-action="BookEvent" asp-controller="NewHome" type="submit" class="btn btn-success d-block" style="display: block; margin: 0 auto;">Book Event</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </form>
+</body>
+</html>

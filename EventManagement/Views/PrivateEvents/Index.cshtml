@@ -1,0 +1,102 @@
+﻿@model IEnumerable<EventManagement.ViewModels.UserOrganizedEventViewModel>
+
+@{
+    ViewData["Title"] = "User Organized Events";
+}
+
+<h1 class="text-center">User Events</h1>
+
+@* <p>
+    <a asp-action="Create" class="btn btn-primary">Create New Private Event</a>
+</p> *@
+
+<div class="container">
+    <table class="table table-bordered table-striped" style="background-color: #f8f9fa;">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Organizer
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HallName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfGuests)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FoodType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactInformation)
+                </th>
+                <th class="text-center">Management Section</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @if (item.IsEventFinished)
+                        {
+                            <p class="text-warning">Event Finished</p>
+                        }
+                        @Html.DisplayFor(modelItem => item.EventName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HallName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfGuests)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FoodType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration) hours
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactInformation)
+                    </td>
+                    <td>
+                        @if (item.IsEventFinished)
+                        {
+                            <div class="btn-group d-flex" role="group">
+                                <a class="btn btn-primary disabled">Edit</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                            </div>
+                        }
+                        else{
+                        <div class="btn-group d-flex" role="group">
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.EventId">Edit</a>
+@*                             <a class="btn btn-info" asp-action="Details" asp-route-id="@item.EventId">Details</a>
+ *@                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                        </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,65 @@
+﻿@model Hall
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center">Add New Hall</h1>
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+            <form asp-action="Create" class="bg-light p-4 rounded text-dark">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="HallName" class="control-label h5">
+                        <i class="bi bi-house-door"></i> Hall Name
+                    </label>
+                    <input asp-for="HallName" class="form-control" placeholder="Enter hall name" />
+                    <span asp-validation-for="HallName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Venue" class="control-label h5">
+                        <i class="bi bi-geo-alt"></i> Venue
+                    </label>
+                    <input asp-for="Venue" class="form-control" placeholder="Enter venue" />
+                    <span asp-validation-for="Venue" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HallPrice" class="control-label h5">
+                        <i class="bi bi-currency-dollar"></i> Hall Price
+                    </label>
+                    <input asp-for="HallPrice" class="form-control" placeholder="Enter hall price" />
+                    <span asp-validation-for="HallPrice" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Location" class="control-label h5">
+                        <i class="bi bi-geo-alt"></i> Location
+                    </label>
+                    <input asp-for="Location" class="form-control" placeholder="Enter location" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GuestLimit" class="control-label h5">
+                        <i class="bi bi-person"></i> Guest Limit
+                    </label>
+                    <input asp-for="GuestLimit" class="form-control" placeholder="Enter guest limit" />
+                    <span asp-validation-for="GuestLimit" class="text-danger"></span>
+                </div>
+
+                <div class="form-group justify-content-between d-flex mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
