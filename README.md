@@ -28,7 +28,8 @@ Eventify aims to streamline event management processes, enhancing user engagemen
 
 ## Database Schema and Dataflow Diagram
 
-- **Database Schema**:![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/49f3533d-e6a1-47b8-a703-4fb1c29b73f9)
+- **Database Schema**:![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/1e6363ef-ca63-414f-98a8-1faa518c48d2)
+
 - **Dataflow Diagram**:![image](https://github.com/Shrey5555/EventManagementSystemProject/assets/136813149/129a376e-4570-48ac-b987-d26c81428a21)
 
 ## Entity Relationship
