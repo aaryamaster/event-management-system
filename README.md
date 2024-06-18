@@ -1,5 +1,5 @@
 # Eventify - Event Management System
-[Visit the Eventify Website](https://eventmanagementsys.azurewebsites.net/)
+[Visit the Website](https://eventmanagementsys.azurewebsites.net/)
 ## Abstract
 
 Eventify is a comprehensive Event Management System developed using ASP.NET MVC Core, Entity Framework, and SQL Server. It provides users with a versatile platform to create, manage, and participate in various events. With a focus on user engagement and administrative efficiency, Eventify offers a seamless experience for event organizers and participants alike.
