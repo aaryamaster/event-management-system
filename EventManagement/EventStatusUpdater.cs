@@ -1,7 +1,9 @@
 ﻿using EventManagement.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,29 +12,47 @@ namespace EventManagement
     public class EventStatusUpdater : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<EventStatusUpdater> _logger;
 
-        public EventStatusUpdater(IServiceProvider serviceProvider)
+        public EventStatusUpdater(IServiceProvider serviceProvider, ILogger<EventStatusUpdater> logger)
         {
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                using (var scope = _serviceProvider.CreateScope())
+                _logger.LogInformation("EventStatusUpdater is running.");
+
+                try
                 {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<EventManagementContext>();
-                    //var date = new DateTime(2024, 3, 31, 15, 31, 0);
-                    var events = dbContext.Events.Where(e => e.Date < DateTime.Now);
-                    if (events != null)
+                    using (var scope = _serviceProvider.CreateScope())
                     {
-                        foreach (var e in events)
+                        var dbContext = scope.ServiceProvider.GetRequiredService<EventManagementContext>();
+                        _logger.LogInformation("Database context acquired.");
+
+                        var events = dbContext.Events.Where(e => e.Date < DateTime.Now);
+                        if (events != null && events.Any())
                         {
-                            e.IsEventFinished = true;
+                            foreach (var e in events)
+                            {
+                                e.IsEventFinished = true;
+                                _logger.LogInformation($"Event {e.EventId} marked as finished."); // Adjusted property name
+                            }
+                            await dbContext.SaveChangesAsync();
+                            _logger.LogInformation("Database changes saved.");
                         }
-                        await dbContext.SaveChangesAsync();
+                        else
+                        {
+                            _logger.LogInformation("No events to update.");
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occurred while updating event statuses.");
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(60), stoppingToken);
@@ -40,4 +60,3 @@ namespace EventManagement
         }
     }
 }
-
