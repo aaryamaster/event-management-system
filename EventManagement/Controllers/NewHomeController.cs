@@ -18,39 +18,50 @@ namespace EventManagement.Controllers
         private readonly EventManagementContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly ILogger<NewHomeController> _logger;
 
         public NewHomeController(
             EventManagementContext context,
-            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManage)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ILogger<NewHomeController> logger)
         {
             _context = context;
             _userManager = userManager;
-            _signInManager = signInManage;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         [AllowAnonymous]
         public IActionResult Index()
         {
-            
-            if (_signInManager.IsSignedIn(User))
+            try
             {
-                if (User.IsInRole("Admin"))
-                    return RedirectToAction("Admin");
-                return RedirectToAction("Dashboard");
+                if (_signInManager.IsSignedIn(User))
+                {
+                    if (User.IsInRole("Admin"))
+                        return RedirectToAction("Admin");
+                    return RedirectToAction("Dashboard");
+                }
+
+                var featuredEvents = _context.AdminEvents
+                                 .Where(e => e.Featured && !e.IsEventFinished)
+                                 .Select(e => new FeaturedEventViewModel
+                                 {
+                                     EventName = e.EventName,
+                                     Description = e.Description
+                                 })
+                                 .ToList();
+
+                return View(featuredEvents);
             }
-
-            var featuredEvents = _context.AdminEvents
-                             .Where(e => e.Featured && !e.IsEventFinished)
-                             .Select(e => new FeaturedEventViewModel
-                             {
-                                 EventName = e.EventName,
-                                 Description = e.Description
-                             })
-                             .ToList();
-
-            return View(featuredEvents);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while loading the Index page.");
+                return View("Error"); // You should have an Error view to display error messages
+            }
         }
+
         public IActionResult BrowseEvent()
         {
             var adminEvents = _context.AdminEvents.Include(h => h.Hall).ToList();
@@ -61,11 +72,12 @@ namespace EventManagement.Controllers
 
             return View(viewModel);
         }
+
         public IActionResult Dashboard()
         {
             if (User.IsInRole("Admin"))
                 return RedirectToAction("Admin");
-            
+
             var featuredEvents = _context.AdminEvents
                              .Where(e => e.Featured && !e.IsEventFinished)
                              .Select(e => new FeaturedEventViewModel
@@ -76,6 +88,7 @@ namespace EventManagement.Controllers
                              .ToList();
             return View(featuredEvents);
         }
+
         public IActionResult MyEvents()
         {
             var userId = _userManager.GetUserId(User);
@@ -101,19 +114,19 @@ namespace EventManagement.Controllers
                                               Venue = item.Hall.Venue,
                                               Location = item.Hall.Location,
                                               Duration = item.Duration,
-                                              TicketId = item.Tickets.First(t=>t.UserId==userId).TicketId
+                                              TicketId = item.Tickets.First(t => t.UserId == userId).TicketId
                                           })
                                           .ToList();
 
             return View(purchasedEvents);
         }
 
-
         [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
             return View();
         }
+
         public IActionResult BookEvent(int? id)
         {
             if (id == null)
@@ -143,18 +156,7 @@ namespace EventManagement.Controllers
 
             return View(viewModel);
         }
-        //public JsonResult GetTicketPriceAndLimit(int eventId, int NumberOfTickets, double ticketPrice, int hallId)
-        //{
-        //    var TotalTickets = _context.Tickets.Where(t => t.EventId == eventId).Sum(t => t.NumberOfTickets);
-        //    var ticketsLeft = _context.Halls.First(h => h.HallId == hallId).GuestLimit - TotalTickets;
-        //    var price = 0.0;
-        //    if(ticketsLeft >= NumberOfTickets)
-        //    {
-        //        price = NumberOfTickets * ticketPrice;
-        //    }
 
-        //    return Json(new {Price = price, TicketsLeft = ticketsLeft});
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ConfirmBooking(BookEventViewModel viewModel)
@@ -179,12 +181,11 @@ namespace EventManagement.Controllers
             _context.SaveChanges();
 
             return View();
-
         }
 
         public IActionResult Delete(int EventId, int TicketId)
         {
-            if(!HasAccess(EventId))
+            if (!HasAccess(EventId))
             {
                 return View("AccessDenied");
             }
@@ -199,13 +200,15 @@ namespace EventManagement.Controllers
             {
                 return NotFound();
             }
-            var viewModel = new DeletePurchasedEventViewModel(){
+            var viewModel = new DeletePurchasedEventViewModel()
+            {
                 AdminEvent = adminEvent,
                 Ticket = ticket
             };
-            
+
             return View(viewModel);
         }
+
         public IActionResult DeleteConfirmed(int EventId, int TicketId)
         {
             if (!HasAccess(EventId))
@@ -219,7 +222,7 @@ namespace EventManagement.Controllers
             }
             _context.Tickets.Remove(ticket);
             var @event = _context.Events.Find(EventId);
-            if(@event == null)
+            if (@event == null)
             {
                 return NotFound();
             }
@@ -227,26 +230,30 @@ namespace EventManagement.Controllers
             user.Events.Remove(@event);
             _context.SaveChanges();
             return View();
-
         }
+
         public ActionResult AccessDenied()
         {
             return View();
         }
+
         [AllowAnonymous]
         public ActionResult About()
         {
             return View();
         }
+
         [AllowAnonymous]
         public ActionResult Contact()
         {
             return View();
         }
+
         public ActionResult EventFinished()
         {
             return View();
         }
+
         public bool HasAccess(int id)
         {
             string userId = _userManager.GetUserId(User);
@@ -258,10 +265,30 @@ namespace EventManagement.Controllers
             }
             return true;
         }
+
         public bool IsEventFinished(int id)
         {
             return _context.AdminEvents.Find(id).IsEventFinished;
         }
 
+        public class HomeController : Controller
+        {
+            // Other action methods...
+
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+            public IActionResult Error()
+            {
+                var requestId = HttpContext.TraceIdentifier;
+
+                var errorViewModel = new ErrorViewModel
+                {
+                    RequestId = requestId
+                };
+
+                return View(errorViewModel);
+            }
+        }
+
     }
 }
+

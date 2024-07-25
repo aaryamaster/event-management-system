@@ -161,4 +161,3 @@ namespace EventManagement.Areas.Identity.Pages.Account
         }
     }
 }
-
