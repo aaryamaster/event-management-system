@@ -21,14 +21,14 @@ jobs:
         with:
           dotnet-version: '6.x'
 
-      - name: Restore dependencies for EventManagementProject
-        run: dotnet restore EventManagementProject/EventManagementProject.csproj
+      - name: Restore dependencies for EventManagement
+        run: dotnet restore EventManagement/EventManagement.csproj
 
       - name: Restore dependencies for EventManagementTest
         run: dotnet restore EventManagementTest/EventManagementTest.csproj
 
-      - name: Build EventManagementProject
-        run: dotnet build EventManagementProject/EventManagementProject.csproj --no-restore
+      - name: Build EventManagement
+        run: dotnet build EventManagement/EventManagement.csproj --no-restore
 
       - name: Build EventManagementTest
         run: dotnet build EventManagementTest/EventManagementTest.csproj --no-restore
