@@ -1,1 +1,37 @@
+name: .NET Core CI
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      - name: Restore dependencies for ApplicationProject
+        run: dotnet restore ApplicationProject/MyApp.csproj
+
+      - name: Restore dependencies for TestsProject
+        run: dotnet restore TestsProject/MyApp.Tests.csproj
+
+      - name: Build ApplicationProject
+        run: dotnet build ApplicationProject/MyApp.csproj --no-restore
+
+      - name: Build TestsProject
+        run: dotnet build TestsProject/MyApp.Tests.csproj --no-restore
+
+      - name: Run tests
+        run: dotnet test TestsProject/MyApp.Tests.csproj --no-build --verbosity normal
