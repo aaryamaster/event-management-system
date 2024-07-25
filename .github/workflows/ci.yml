@@ -24,14 +24,14 @@ jobs:
       - name: Restore dependencies for EventManagement
         run: dotnet restore EventManagement/EventManagement.csproj
 
-      - name: Restore dependencies for EventManagementTest
-        run: dotnet restore EventManagementTest/EventManagementTest.csproj
+      - name: Restore dependencies for EventManagementTests
+        run: dotnet restore EventManagementTests/EventManagementTests.csproj
 
       - name: Build EventManagement
         run: dotnet build EventManagement/EventManagement.csproj --no-restore
 
-      - name: Build EventManagementTest
-        run: dotnet build EventManagementTest/EventManagementTest.csproj --no-restore
+      - name: Build EventManagementTests
+        run: dotnet build EventManagementTests/EventManagementTests.csproj --no-restore
 
       - name: Run tests
-        run: dotnet test EventManagementTest/EventManagementTest.csproj --no-build --verbosity normal
+        run: dotnet test EventManagementTests/EventManagementTests.csproj --no-build --verbosity normal
