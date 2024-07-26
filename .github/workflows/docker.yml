@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -7,16 +7,19 @@ on:
   pull_request:
     branches:
       - main
+  workflow_run:
+    workflows: [Python CI with pytest]
+    types: [completed]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up .NET SDK
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.x'
@@ -30,23 +33,51 @@ jobs:
       - name: Run tests
         run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-restore --verbosity normal
 
+  build-docker-image:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t event-management-app .
+        run: docker build -f path/to/Dockerfile -t event-management-app .
 
       - name: Save Docker image as artifact
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          tags: event-management-app:latest
-          push: false
+        run: docker save event-management-app -o event-management-app.tar
 
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v3
         with:
           name: event-management-app
-          path: |
-            event-management-app.tar
+          path: event-management-app.tar
+
+  deploy:
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -f path/to/Dockerfile -t aaryamaster/flaskpipeline .
+
+      - name: Push Docker image to Docker Hub
+        run: docker push aaryamaster/flaskpipeline
+
+      - name: Notify on failure
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: echo 'The triggering workflow failed'
