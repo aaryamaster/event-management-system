@@ -13,34 +13,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: '6.0.x'
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x'
 
-    - name: Restore dependencies
-      run: dotnet restore EventManagement/EventManagement.csproj
+      - name: Restore dependencies
+        run: dotnet restore EventManagement/EventManagement.csproj
 
-    - name: Build the main application
-      run: dotnet build EventManagement/EventManagement.csproj --configuration Release --no-restore
+      - name: Build the main application
+        run: dotnet build EventManagement/EventManagement.csproj --configuration Release --no-restore
 
-    - name: Run tests
-      run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-restore --verbosity normal
+      - name: Run tests
+        run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-restore --verbosity normal
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Build Docker image
-      run: docker build -t event-management-app .
+      - name: Build Docker image
+        run: docker build -t event-management-app .
 
-    - name: Save Docker image as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: event-management-app
-        path: |
-          ./Dockerfile
-          ./EventManagement
-          ./EventManagement.Tests
+      - name: Save Docker image as artifact
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: event-management-app:latest
+          push: false
+
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: event-management-app
+          path: |
+            event-management-app.tar
