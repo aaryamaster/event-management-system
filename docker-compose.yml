@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  eventmanagement:
+    image: ${DOCKER_REGISTRY-}eventmanagement
+    build:
+      context: .
+      dockerfile: EventManagement/Dockerfile
+
+  eventmanagement.tests:
+    image: ${DOCKER_REGISTRY-}eventmanagement
+    build:
+      context: .
+      dockerfile: EventManagement.Tests/Dockerfile
+

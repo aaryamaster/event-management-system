@@ -1,3 +1,36 @@
+<<<<<<< HEAD
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManagement", "EventManagement\EventManagement.csproj", "{29E5F1C6-BFE3-48E2-B57D-577472535DEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManagement.Tests", "EventManagement.Tests\EventManagement.Tests.csproj", "{96CE1D5D-8B4E-46B3-97F5-486E7D906E56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29E5F1C6-BFE3-48E2-B57D-577472535DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E5F1C6-BFE3-48E2-B57D-577472535DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E5F1C6-BFE3-48E2-B57D-577472535DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E5F1C6-BFE3-48E2-B57D-577472535DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CE1D5D-8B4E-46B3-97F5-486E7D906E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CE1D5D-8B4E-46B3-97F5-486E7D906E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CE1D5D-8B4E-46B3-97F5-486E7D906E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CE1D5D-8B4E-46B3-97F5-486E7D906E56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {239349D0-C852-4D52-B4E6-CD8E38470C95}
+	EndGlobalSection
+EndGlobal
+=======
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
@@ -23,3 +56,4 @@ Global
 		SolutionGuid = {A6894633-BFB9-40DB-9B9A-D20F60EDACAD}
 	EndGlobalSection
 EndGlobal
+>>>>>>> ac1ee3f (added dockerfile)

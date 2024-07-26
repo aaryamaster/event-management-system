@@ -1,0 +1,37 @@
+name: .NET Core CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x'
+
+      - name: Restore dependencies for EventManagement
+        run: dotnet restore EventManagement/EventManagement.csproj
+
+      - name: Restore dependencies for EventManagement.Tests
+        run: dotnet restore EventManagement.Tests/EventManagement.Tests.csproj
+
+      - name: Build EventManagement
+        run: dotnet build EventManagement/EventManagement.csproj --no-restore
+
+      - name: Build EventManagementTests
+        run: dotnet build EventManagement.Tests/EventManagement.Tests.csproj --no-restore
+
+      - name: Run tests
+        run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-build --verbosity normal
