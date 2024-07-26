@@ -1,0 +1,46 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore EventManagement/EventManagement.csproj
+
+    - name: Build the main application
+      run: dotnet build EventManagement/EventManagement.csproj --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-restore --verbosity normal
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      run: docker build -t event-management-app .
+
+    - name: Save Docker image as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: event-management-app
+        path: |
+          ./Dockerfile
+          ./EventManagement
+          ./EventManagement.Tests
