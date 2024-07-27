@@ -48,17 +48,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: docker build -f Dockerfile -t event-management-app .
-
-      - name: Save Docker image as artifact
-        run: docker save event-management-app -o event-management-app.tar
-
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v3
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          name: event-management-app
-          path: event-management-app.tar
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set environment variables
+        run: |
+          echo "INSTANCE_CONNECTION_NAME=${{ secrets.INSTANCE_CONNECTION_NAME }}" >> $GITHUB_ENV
+          echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: docker build -f Dockerfile -t ${{ secrets.DOCKER_HUB_USERNAME }}/event-management-app .
+
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/event-management-app
 
   deploy:
     needs: build-docker-image
@@ -66,21 +73,48 @@ jobs:
     if: success()
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
         with:
-          username: ${{ secrets.DOCKHUB_USERNAME }}
-          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Build Docker image
-        run: docker build -f Dockerfile -t aaryamaster/eventsystem .
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Push Docker image to Docker Hub
-        run: docker push aaryamaster/eventsystem
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy event-management-app \
+          --image ${{ secrets.DOCKER_HUB_USERNAME }}/event-management-app:latest \
+          --platform managed \
+          --region us-central1 \
+          --allow-unauthenticated \
+          --update-env-vars "ConnectionStrings__EventManagementContextConnection=Server=${{ secrets.INSTANCE_CONNECTION_NAME }};Database=${{ secrets.DATABASE_NAME }};User Id=${{ secrets.DB_USERNAME }};Password=${{ secrets.DB_PASSWORD }};Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;"
 
+  migrate:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Run EF Core migrations
+        run: |
+          gcloud run exec --project ${{ secrets.GCP_PROJECT_ID }} --region us-central1 event-management-app -- dotnet ef database update --project EventManagement/EventManagement.csproj --configuration Release
+
+  notify-on-failure:
+    if: failure()
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Notify on failure
-        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
         run: echo 'The triggering workflow failed'
