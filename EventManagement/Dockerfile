@@ -1,7 +1,7 @@
 # Base image for runtime
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
 
 # Build and test image
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
@@ -28,5 +28,9 @@ RUN dotnet publish "EventManagement.csproj" -c Release -o /app/publish
 # Final runtime image
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .x
+COPY --from=publish /app/publish .
+
+# Set the environment variable to tell ASP.NET Core to bind to port 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
 ENTRYPOINT ["dotnet", "EventManagement.dll"]
