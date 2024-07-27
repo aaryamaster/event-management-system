@@ -31,7 +31,7 @@
                                     <div class="card-body text-dark">
                                         <h5 class="card-title">@e.EventName</h5>
                                         <p class="card-text mb-0">@e.Description</p>
-                                        <p class="card-text mb-1">Ticket Price: Rs. @e.EventPrice</p>
+                                        <p class="card-text mb-1">Ticket Price: $ @e.EventPrice</p>
                                         @if (Model.Tickets.Any(t => t.UserId == Model.UserId && t.EventId == eventId))
                                         {
                                         <strong class="text-danger d-block mb-0">Tickets already bought</strong>
