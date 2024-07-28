@@ -12,7 +12,7 @@ on:
     types: [completed]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +34,7 @@ jobs:
         run: dotnet test EventManagement.Tests/EventManagement.Tests.csproj --no-restore --verbosity normal
 
   build-docker-image:
-    needs: build-and-test
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
