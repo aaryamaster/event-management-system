@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using EventManagement.Models;
+using EventManagement;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,9 +61,4 @@ app.MapControllerRoute(
     pattern: "{controller=NewHome}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
-// Listen on the port defined by the environment variable PORT or 8080 by default
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Urls.Add($"http://*:{port}");
-
 app.Run();
