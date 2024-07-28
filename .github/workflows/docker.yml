@@ -84,7 +84,6 @@ jobs:
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated \
-          --no-traffic \
           --update-env-vars "ConnectionStrings__EventManagementContextConnection=Server=${{ secrets.INSTANCE_CONNECTION_NAME }};Database=${{ secrets.DATABASE_NAME }};User Id=${{ secrets.DB_USERNAME }};Password=${{ secrets.DB_PASSWORD }};Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;" \
           --command "/bin/sh" \
           --args "-c 'dotnet ef database update --project EventManagement/EventManagement.csproj --configuration Release'"
