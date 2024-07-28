@@ -17,5 +17,6 @@ RUN dotnet publish EventManagement/EventManagement.csproj --configuration Releas
 # Use the ASP.NET image to run the application
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
+EXPOSE 8080
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "EventManagement.dll"]
