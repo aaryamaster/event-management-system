@@ -17,17 +17,10 @@ RUN dotnet publish EventManagement/EventManagement.csproj --configuration Releas
 # Use the ASP.NET image to run the application
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
-
-# Install Cloud SQL Auth Proxy
-RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.arm64 -O /usr/local/bin/cloud_sql_proxy && \
-    chmod +x /usr/local/bin/cloud_sql_proxy
-
 # Expose ports
 EXPOSE 8080
 EXPOSE 443
 
 # Copy the published application from the build stage
 COPY --from=build /app/publish .
-
-# Start Cloud SQL Auth Proxy and your application
-CMD ["/bin/sh", "-c", "/usr/local/bin/cloud_sql_proxy -dir=/cloudsql -instances=event-management-system-430621:us-central1:eventmanagementsystem & dotnet EventManagement.dll"]
+ENTRYPOINT ["dotnet", "EventManagement.dll"]
