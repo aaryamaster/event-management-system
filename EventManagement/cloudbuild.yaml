@@ -1,0 +1,23 @@
+﻿steps:
+- name: gcr.io/cloud-builders/docker
+  args: ['build', '-t', '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA', '.']
+  id: 'Build Docker image'
+
+- name: gcr.io/cloud-builders/docker
+  args: ['push', '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA']
+  id: 'Push Docker image'
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  entrypoint: gcloud
+  args: ['run', 'deploy', '$_SERVICE_NAME', 
+         '--image', '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA', 
+         '--platform', 'managed', 
+         '--region', '$_REGION', 
+         '--allow-unauthenticated', 
+         '--set-env-vars', "ConnectionStrings__DefaultConnection=Server=34.44.194.190;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123"]
+  id: 'Deploy to Cloud Run'
+
+images:
+- '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+
+timeout: 1200s
