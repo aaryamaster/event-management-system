@@ -18,7 +18,7 @@ RUN dotnet publish EventManagement/EventManagement.csproj --configuration Releas
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 # Expose ports
-EXPOSE 80
+EXPOSE 8080
 # Copy the published application from the build stage
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "EventManagement.dll"]
