@@ -17,6 +17,12 @@ RUN dotnet publish EventManagement/EventManagement.csproj --configuration Releas
 # Use the ASP.NET image to run the application
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
+
+# Expose the port the app will run on
 EXPOSE 8080
+
+# Copy the published app from the build stage
 COPY --from=build /app/publish .
+
+# Set the entry point for the container
 ENTRYPOINT ["dotnet", "EventManagement.dll"]
