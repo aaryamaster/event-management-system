@@ -18,11 +18,16 @@ RUN dotnet publish EventManagement/EventManagement.csproj --configuration Releas
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 
-# Expose the port the app will run on
-EXPOSE 8080
+# Install Cloud SQL Auth Proxy
+RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.arm64 -O /usr/local/bin/cloud_sql_proxy && \
+    chmod +x /usr/local/bin/cloud_sql_proxy
 
-# Copy the published app from the build stage
+# Expose ports
+EXPOSE 8080
+EXPOSE 443
+
+# Copy the published application from the build stage
 COPY --from=build /app/publish .
 
-# Set the entry point for the container
-ENTRYPOINT ["dotnet", "EventManagement.dll"]
+# Start Cloud SQL Auth Proxy and your application
+CMD ["/bin/sh", "-c", "/usr/local/bin/cloud_sql_proxy -dir=/cloudsql -instances=event-management-system-430621:us-central1:eventmanagementsystem & dotnet EventManagement.dll"]
