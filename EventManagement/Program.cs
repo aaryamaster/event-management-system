@@ -61,7 +61,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
 app.Urls.Add($"http://*:{port}");
 
 app.Run();
