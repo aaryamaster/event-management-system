@@ -14,7 +14,7 @@ steps:
          '--platform', 'managed', 
          '--region', '$_REGION', 
          '--allow-unauthenticated', 
-         '--set-env-vars', "ConnectionStrings__DefaultConnection=Server=/cloudsql/event-management-system-430621:us-central1:eventmanagementsystem;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123"]
+         '--set-env-vars', "ConnectionStrings__DefaultConnection=Server=34.44.194.190;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123"]
   id: 'Deploy to Cloud Run'
 
 images:
