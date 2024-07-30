@@ -14,7 +14,8 @@ steps:
          '--platform', 'managed',
          '--region', 'us-central1',
          '--allow-unauthenticated',
-         '--set-env-vars', "ASPNETCORE_ENVIRONMENT=Development,ConnectionStrings__DefaultConnection=Server=34.44.194.190;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123"]
+         '--set-env-vars', "ASPNETCORE_ENVIRONMENT=Development,ConnectionStrings__DefaultConnection=Server=34.44.194.190;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123",
+         '--port', '8080']
   id: 'Deploy to Cloud Run'
   
 images:
