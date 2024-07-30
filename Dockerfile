@@ -19,8 +19,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 # Expose ports
 EXPOSE 8080
-EXPOSE 443
-
 # Copy the published application from the build stage
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "EventManagement.dll"]
