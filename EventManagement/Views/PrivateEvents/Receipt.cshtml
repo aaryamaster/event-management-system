@@ -60,7 +60,7 @@
                 <td>@Model.PrivateEvent.Hall.HallPrice</td>
             </tr>
             <tr>
-                <th>Duration Charges Rs. 5000 per hour</th>
+                <th>Duration Charges $ 150 per hour</th>
                 <td>@Model.DurationCharge</td>
             </tr>
             <tr>
@@ -68,12 +68,12 @@
                 <td>@Model.FoodCharge</td>
             </tr>
             <tr>
-                <th>Taxes 18% GST and 10% Others</th>
+                <th>Taxes 13% GST and 10% Others</th>
                 <td>@Model.TotalTax</td>
             </tr>
             <tr>
                 <th>SubTotal</th>
-                <td>Rs. @Model.TotalPrice</td>
+                <td>$ @Model.TotalPrice</td>
             </tr>
         </table>
         @Html.ActionLink("Confirm Booking", "ConfirmBooking", "PrivateEvents", new { viewModelJson = privateEvent }, new { @class = "btn btn-success d-block offset-10" })
