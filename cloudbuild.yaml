@@ -15,7 +15,7 @@ steps:
          '--region', 'us-central1',
          '--allow-unauthenticated',
          '--add-cloudsql-instances', 'event-management-system-430621:us-central1:eventmanagementsystem',
-         '--set-env-vars', 'SQL_CONNECTION_STRING=Server=tcp:event-management-system-430621:us-central1:eventmanagementsystem,1433;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123;TrustServerCertificate=True;',
+         '--set-env-vars', 'SQL_CONNECTION_STRING=Server=tcp:34.44.194.190,1433;Database=EventManagementFinalNewNew;User Id=sqlserver;Password=event@123;TrustServerCertificate=True;',
          '--set-env-vars', 'ASPNETCORE_ENVIRONMENT=Development',
          '--port', '8080']
   id: 'Deploy to Cloud Run'
